@@ -14,6 +14,7 @@ init()
 
 max_terminal = 100
 prencher = '#'
+vazio = ' '
 clientes = {}
 contas = []
 numero_conta = 0
@@ -25,10 +26,10 @@ lista_saques = []
 LIMITE_SAQUES = int(3)
 
 def menu():
-    menu = Back.BLUE + f"""                                                                                                                       
-    {max_terminal * prencher}
-        SISTEMA BANCÁRIO                                                                                                   
-    {max_terminal * prencher}
+    menu = Back.BLUE + f"""\n{max_terminal * vazio}
+    {80 * prencher}{40 * vazio}
+        SISTEMA BANCÁRIO{10 * vazio}                                                                                                   
+    {80 * prencher}{40 * vazio}
                                                                                                                            
     (1) {Style.BRIGHT}Novo Cliente           {Style.NORMAL}{Fore.LIGHTBLUE_EX}Cadastrar Novo Cliente no Sistema Bancário{Fore.RESET}                                                
     (2) {Style.BRIGHT}Nova Conta Corrente    {Style.NORMAL}{Fore.LIGHTBLUE_EX}Cadastrar Nova Conta no Sistema Bancário{Fore.RESET}           
@@ -141,7 +142,7 @@ while True:
         nova_conta_corrente(clientes, numero_conta, cpf_cliente=cpf_cliente)
         
     elif opcao == 3:
-        print(Back.BLUE + "NOVO CLIENTE")
+        print(Back.BLUE + "NOVO DEPÓSITO" + 100 * vazio)
         valor = validar_valor(input('Valor do Depósito: '))
         
         if valor == False:
@@ -157,12 +158,8 @@ while True:
 
         if saque(saldo = saldo, valor = valor_saque, limite = limite, limite_saques = LIMITE_SAQUES) == False:
             continue
-    
-    elif opcao == 6:
-        listar_clientes(clientes)
-                       
-        
-    elif opcao == "e":
+            
+    elif opcao == 5:
         print("\n=======  EXTRATO ======")
         if len(lista_depositos) > 0:                  
             for deposito in lista_depositos:
@@ -174,6 +171,9 @@ while True:
             
         print(f"Saldo: R$ {saldo:.2f}")  
         print("\n=======================")  
+        
+    elif opcao == 6:
+        listar_clientes(clientes)
                     
     elif opcao == 9:        
         break
