@@ -119,7 +119,13 @@ def validar_valor(valor):
     return float(valor)
 
 while True:
-    opcao = int(input(menu()))
+    opcao = input(menu())
+        
+    if opcao in '' or not opcao.isdigit():
+        print(Fore.RED + "\tValor informado inválido!" + Fore.RESET)
+        continue
+    
+    opcao = int(opcao)
 
     if opcao == 1:
         #print(Back.BLUE + f"""##################################################################################################################\n """) 
@@ -138,7 +144,7 @@ while True:
 
     elif opcao == 2:
         print(Back.BLUE + "\tPara abertura de Nova Conta Corrente é necessário informar o CPF do Cliente")
-        cpf_cliente = input('CPF do Cliente: ')
+        cpf_cliente = input('\tCPF do Cliente: ')
 
         if cpf_cliente not in clientes:
             print('\tCliente inexistente! - Informe um CPF de um Cliente Válido!')
