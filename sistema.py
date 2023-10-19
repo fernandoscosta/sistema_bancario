@@ -44,11 +44,11 @@ def menu():
 
 def novo_cliente(clientes, *, nome, nascimento, cpf, logradouro):
     if cpf in clientes:
-        print('Cliente já cadastrado com este CPF!')
+        print('\tCliente já cadastrado com este CPF!')
         return False;
 
     clientes[cpf] = { 'nome': nome, 'data_nascimento': nascimento, 'cpf': cpf, 'logradouro' : logradouro}
-    print('Cliente cadastrado com Sucesso!')
+    print('\tCliente cadastrado com Sucesso!')
 
 def nova_conta_corrente(clientes, numero_conta, *, cpf_cliente):
     agencia = '0001'
@@ -57,41 +57,41 @@ def nova_conta_corrente(clientes, numero_conta, *, cpf_cliente):
     contas.append(nova_conta)
     
     print(f"\n######  Nova Conta Corrente criada #######")
-    print(f"Cliente: {clientes[cpf_cliente]['nome']} - CPF ({cpf_cliente})")
-    print(f"Endereço: {clientes[cpf_cliente]['logradouro']}")
-    print(f"#############################\n")
-    print(f"###### Dados Bancários ######")
-    print(f"Agência: {agencia} \nConta: {numero_conta}")
-    print(f"#############################")
+    print(f"\tCliente: {clientes[cpf_cliente]['nome']} - CPF ({cpf_cliente})")
+    print(f"\tEndereço: {clientes[cpf_cliente]['logradouro']}")
+    print(f"\t#############################\n")
+    print(f"\t###### Dados Bancários ######")
+    print(f"\tAgência: {agencia} \nConta: {numero_conta}")
+    print(f"\t#############################")
 
 def listar_clientes(clientes):
-    print(f"Relação de Clientes\n")
+    print(f"\tRelação de Clientes\n")
     for cliente in clientes:
         print(f"Cliente: {cliente['nome']} - CPF ({cliente['cpf']})")
 
 def deposito(saldo, valor):
     saldo = saldo + valor
     lista_depositos.append(valor)        
-    print(Fore.GREEN + "Depósito de R$ {valor} realizado com Sucesso!" + Fore.RESET) 
+    print(Fore.GREEN + f"\tDepósito de R$ {valor} realizado com Sucesso!" + Fore.RESET) 
 
 def saque(*, saldo, valor, limite, limite_saques):
    
     if len(lista_saques) > limite_saques:
-        print(Fore.BLUE + f"você excedeu o número de 3 saques diários" + Fore.RESET)
+        print(Fore.BLUE + f"\tVocê excedeu o número de 3 saques diários" + Fore.RESET)
         return False
     
     if valor > limite:
-        print(Fore.BLUE + f"Você possui um limite de R$ {limite} por saque." + Fore.RESET)
+        print(Fore.BLUE + f"\tVocê possui um limite de R$ {limite} por saque." + Fore.RESET)
         return False    
     
     if valor > saldo:
-        print(Fore.RED + "Saldo insuficiente!" + Fore.RESET)
+        print(Fore.RED + "\tSaldo insuficiente!" + Fore.RESET)
         return False
     
     saldo = saldo - valor
     lista_saques.append(valor)
     
-    print(Fore.GREEN + "Saque realizado com Sucesso!" + Fore.RESET)
+    print(Fore.GREEN + "\tSaque realizado com Sucesso!" + Fore.RESET)
 
     #saldo e extrato
     return saldo, extrato
@@ -100,16 +100,20 @@ def extrato():
     return 0
 
 def validar_valor(valor):
+    if valor is '':
+        print(Fore.RED + "\tValor não Informado!" + Fore.RESET)
+        return False
+        
     if "," in valor:
-        print(Fore.RED + "Valor inválido. Por favor, não use vírgula." + Fore.RESET)
+        print(Fore.RED + "\tValor inválido. Por favor, não use vírgula." + Fore.RESET)
         return False
         
     if any(c.isalpha() for c in valor):
-        print(Fore.RED + "Valor inválido. Por favor, não use letras." + Fore.RESET)
+        print(Fore.RED + "\tValor inválido. Por favor, não use letras." + Fore.RESET)
         return False    
     
     if float(valor) < 0:
-        print(Fore.RED + "Valor informado inválido!" + Fore.RESET)
+        print(Fore.RED + "\tValor informado inválido!" + Fore.RESET)
         return False
             
     return float(valor)
@@ -119,31 +123,31 @@ while True:
 
     if opcao == 1:
         #print(Back.BLUE + f"""##################################################################################################################\n """) 
-        print(Back.BLUE + "NOVO CLIENTE")
+        print(Back.BLUE + "\tNOVO CLIENTE" + 130 * vazio)
         
         
         #print(Fore.LIGHTBLUE_EX + "Cadastrar Novo Cliente no Sistema Bancário" + Fore.RESET}   
-        nome_cliente = input('Nome do Cliente: ')
-        data_nascimento = input('Data de Nascimento: ')
-        identificacao = input('CPF: ')
-        endereco = input('Endereço: ')   
+        nome_cliente = input('\tNome do Cliente: ')
+        data_nascimento = input('\tData de Nascimento: ')
+        identificacao = input('\tCPF: ')
+        endereco = input('\tEndereço: ')   
 
         #validar dados de entrada do novo cliente 
 
         novo_cliente(clientes, nome = nome_cliente, nascimento = data_nascimento, cpf = identificacao, logradouro = endereco)
 
     elif opcao == 2:
-        print(Back.BLUE + "Para abertura de Nova Conta Corrente é necessário informar o CPF do Cliente")
+        print(Back.BLUE + "\tPara abertura de Nova Conta Corrente é necessário informar o CPF do Cliente")
         cpf_cliente = input('CPF do Cliente: ')
 
         if cpf_cliente not in clientes:
-            print('Cliente inexistente! - Informe um CPF de um Cliente Válido!')
+            print('\tCliente inexistente! - Informe um CPF de um Cliente Válido!')
                 
         nova_conta_corrente(clientes, numero_conta, cpf_cliente=cpf_cliente)
         
     elif opcao == 3:
-        print(Back.BLUE + "NOVO DEPÓSITO" + 100 * vazio)
-        valor = validar_valor(input('Valor do Depósito: '))
+        print(Back.BLUE + "\tNOVO DEPÓSITO" + 100 * vazio)
+        valor = validar_valor(input('\tValor do Depósito: '))
         
         if valor == False:
             continue
@@ -151,7 +155,7 @@ while True:
         deposito(saldo, valor)        
                
     elif opcao == 4:
-        valor_saque = validar_valor(input('Valor do Saque: '))
+        valor_saque = validar_valor(input('\tValor do Saque: '))
 
         if valor_saque == False:
             continue
@@ -178,4 +182,5 @@ while True:
     elif opcao == 9:        
         break
     else:
-        print("Operação Inválida, por favor selecione novamente a operação desejada.")
+        print("\tOperação Inválida, por favor selecione novamente a operação desejada.")
+        
