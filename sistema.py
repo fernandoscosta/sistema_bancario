@@ -160,17 +160,17 @@ while True:
             continue
             
     elif opcao == 5:
-        print("\n=======  EXTRATO ======")
+        print(Fore.LIGHTBLUE_EX + "\n=======  EXTRATO ======" + Fore.RESET)
         if len(lista_depositos) > 0:                  
             for deposito in lista_depositos:
-                print(f"Depósito: R$ {deposito:.2f}")
+                print(Fore.LIGHTBLUE_EX + f"Depósito: R$ {deposito:.2f}" + Fore.RESET)
         
         if len(lista_saques) > 0:    
             for saque in lista_saques:
-                print(f"Saque: R$ {saque:.2f}")
+                print(Fore.LIGHTBLUE_EX + f"Saque: R$ {saque:.2f}" + Fore.RESET)
             
-        print(f"Saldo: R$ {saldo:.2f}")  
-        print("\n=======================")  
+        print(Fore.LIGHTBLUE_EX + f"Saldo: R$ {saldo:.2f}")  
+        print(Fore.LIGHTBLUE_EX + "\n=======================" + Fore.RESET)  
         
     elif opcao == 6:
         listar_clientes(clientes)
