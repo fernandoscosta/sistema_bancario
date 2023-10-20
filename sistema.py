@@ -66,8 +66,8 @@ def nova_conta_corrente(clientes, numero_conta, *, cpf_cliente):
 
 def listar_clientes(clientes):
     print(f"\tRelação de Clientes\n")
-    for cliente in clientes:
-        print(f"Cliente: {cliente['nome']} - CPF ({cliente['cpf']})")
+    for chave, cliente in clientes.items():
+        print(f"Cliente: {cliente['nome']} - CPF ({chave})")
 
 def deposito(saldo, valor):
     saldo = saldo + valor
@@ -128,23 +128,40 @@ while True:
     opcao = int(opcao)
 
     if opcao == 1:
-        #print(Back.BLUE + f"""##################################################################################################################\n """) 
         print(Back.BLUE + "\tNOVO CLIENTE" + 130 * vazio)
-        
-        
-        #print(Fore.LIGHTBLUE_EX + "Cadastrar Novo Cliente no Sistema Bancário" + Fore.RESET}   
         nome_cliente = input('\tNome do Cliente: ')
+        
+        if nome_cliente is '':
+            print(Fore.RED + "\tNome do Cliente não Informado!" + Fore.RESET)
+            continue
+        
         data_nascimento = input('\tData de Nascimento: ')
+        
+        if data_nascimento is '':
+            print(Fore.RED + "\tData de Nascimento não Informado!" + Fore.RESET)
+            continue
+        
         identificacao = input('\tCPF: ')
+        
+        if identificacao is '':
+            print(Fore.RED + "\tCPF não Informado!" + Fore.RESET)
+            continue
+        
         endereco = input('\tEndereço: ')   
-
-        #validar dados de entrada do novo cliente 
-
+        
+        if endereco is '':
+            print(Fore.RED + "\tEndereço não Informado!" + Fore.RESET)
+            continue
+        
         novo_cliente(clientes, nome = nome_cliente, nascimento = data_nascimento, cpf = identificacao, logradouro = endereco)
 
     elif opcao == 2:
         print(Back.BLUE + "\tPara abertura de Nova Conta Corrente é necessário informar o CPF do Cliente")
         cpf_cliente = input('\tCPF do Cliente: ')
+        
+        if cpf_cliente is '':
+            print(Fore.RED + "\tCPF do Cliente!" + Fore.RESET)
+            continue
 
         if cpf_cliente not in clientes:
             print('\tCliente inexistente! - Informe um CPF de um Cliente Válido!')
