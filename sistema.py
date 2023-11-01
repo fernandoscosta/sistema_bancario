@@ -10,21 +10,6 @@ pip install colorama
 
 from colorama import init, Fore, Back, Style
 
-init()
-
-max_terminal = 100
-prencher = '#'
-vazio = ' '
-clientes = {}
-contas = []
-numero_conta = 0
-saldo = float(0)
-limite = float(500)
-extrato = ""
-lista_depositos = []
-lista_saques = []
-LIMITE_SAQUES = int(3)
-
 def menu():
     menu = Back.BLUE + f"""\n{max_terminal * vazio}
     {80 * prencher}{40 * vazio}
@@ -118,6 +103,10 @@ def validar_valor(valor):
             
     return float(valor)
 
+
+clientes = {}
+contas = []
+
 while True:
     opcao = input(menu())
         
@@ -168,7 +157,7 @@ while True:
                 
         nova_conta_corrente(clientes, numero_conta, cpf_cliente=cpf_cliente)
         
-    elif opcao == 3:
+    elif opcao == 3:        
         print(Back.BLUE + "\tNOVO DEPÓSITO" + 100 * vazio)
         valor = validar_valor(input('\tValor do Depósito: '))
         
